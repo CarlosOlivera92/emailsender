@@ -7,6 +7,9 @@ class EmailSenderController {
     async sendEmail(req, res) {
         try {
             const {userEmail, userName, userPhone, userBusiness, userMessage} = req.body;
+            if (!userName || !userEmail || !userMessage) {
+                res.status(400).send({ status: 'Error', message: 'Uno o más campos obligatorios están faltando' });
+            }
             const userOptions = {
                 email: userEmail,
                 username: userName,
@@ -15,7 +18,6 @@ class EmailSenderController {
                 message : userMessage,
             }
             const emailService  = await sendEmail(userOptions);
-            console.log(emailService)
             res.status(200).send({ status: 'success', message: 'Correo enviado exitosamente' });
 
         } catch (error) {

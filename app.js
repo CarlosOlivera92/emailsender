@@ -1,10 +1,14 @@
 import express from 'express';
 import EmailSenderRouter from './src/routes/mailsender.router.js';
 import dotenv from 'dotenv';
-
+import cors from 'cors';
 dotenv.config();
+
 const PORT = 8080;
 const app = express();
+
+// Permitir solicitudes desde cualquier origen
+app.use(cors());
 
 const emailSenderRouter = new EmailSenderRouter();
 
