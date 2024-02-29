@@ -5,11 +5,20 @@ const sendEmail = async(userOptions) => {
     try {
         const subject = 'Consulta Realizada desde el sitio de Sofexs';
         const message = userOptions.message;
+        const html = `
+            <p>Remitente: ${userOptions.username}</p>
+            <p>Correo electrónico: ${userOptions.email}</p>
+            <p>Teléfono: ${userOptions.phoneNumber}</p>
+            <p>Empresa: ${userOptions.business}</p>
+            <p>Mensaje: ${message}</p>
+        `;
+
+        // Configurar las opciones del correo electrónico
         const mailOptions = {
-            from: userOptions.email , // Dirección de correo electrónico de tu cuenta
-            to: configs.googleUsername, // Dirección de correo electrónico de destino (tu dirección de correo electrónico)
+            from: userOptions.email,
+            to: configs.googleUsername,
             subject: subject,
-            text: `Remitente:`
+            html: html, // Usar el HTML personalizado en lugar del texto plano
         };
         const info = await transporter.sendMail(mailOptions);
         console.log('Correo electrónico enviado:', info);
