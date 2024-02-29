@@ -7,11 +7,39 @@ class EmailSenderController {
     async sendEmail(req, res) {
         try {
             const { userEmail, userName, userPhone, userBusiness, userMessage } = req.body;
+            
 
-            // Validar que los campos obligatorios estén presentes y sean de tipo string
-            if (!userName || !userEmail || !userMessage || typeof userName !== 'string' || typeof userEmail !== 'string' || typeof userMessage !== 'string') {
-                res.status(400).send({ status: 'Error', message: 'Uno o más campos obligatorios están faltando o no son del tipo correcto' });
-                return; 
+Mis disculpas por la confusión. En el código proporcionado, parece que se están utilizando operadores de comparación incorrectos al verificar los tipos de datos de los campos recibidos en el controlador. Aquí tienes una corrección para realizar las validaciones con los tipos de datos adecuados:
+
+javascript
+Copy code
+import sendEmail from "../services/email.service.js";
+
+class EmailSenderController {
+    constructor() {
+        this.sendEmail = this.sendEmail.bind(this)
+    }
+
+    async sendEmail(req, res) {
+        try {
+            const { userEmail, userName, userPhone, userBusiness, userMessage } = req.body;
+            
+            // Validar que los campos obligatorios no estén vacíos
+            if (!userName || !userEmail || !userMessage) {
+                res.status(400).send({ status: 'Error', message: 'Uno o más campos obligatorios están faltando' });
+                return; // Detener la ejecución si faltan campos obligatorios
+            }
+
+            // Validar que los campos obligatorios no estén vacíos
+            if (!userName || !userEmail || !userMessage) {
+                res.status(400).send({ status: 'Error', message: 'Uno o más campos obligatorios están faltando' });
+                return; // Detener la ejecución si faltan campos obligatorios
+            }
+
+            // Validar el tipo de datos de los campos
+            if (typeof(userName)  !== 'string' || typeof(userEmail) !== 'string' || typeof(userMessage) !== 'string' || (userPhone && typeof(userPhone) !== 'number')) {
+                res.status(400).send({ status: 'Error', message: 'Uno o más campos tienen un tipo de dato incorrecto' });
+                return; // Detener la ejecución si algún campo tiene un tipo de dato incorrecto
             }
 
             // Validar que el teléfono sea de tipo numérico si está presente
