@@ -4,21 +4,6 @@ class EmailSenderController {
     constructor() {
         this.sendEmail = this.sendEmail.bind(this)
     }
-    async sendEmail(req, res) {
-        try {
-            const { userEmail, userName, userPhone, userBusiness, userMessage } = req.body;
-            
-
-Mis disculpas por la confusión. En el código proporcionado, parece que se están utilizando operadores de comparación incorrectos al verificar los tipos de datos de los campos recibidos en el controlador. Aquí tienes una corrección para realizar las validaciones con los tipos de datos adecuados:
-
-javascript
-Copy code
-import sendEmail from "../services/email.service.js";
-
-class EmailSenderController {
-    constructor() {
-        this.sendEmail = this.sendEmail.bind(this)
-    }
 
     async sendEmail(req, res) {
         try {
